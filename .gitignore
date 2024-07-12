@@ -1,5 +1,4 @@
 node_modules
 package-lock.json
 package.json
-/routes/albumRoute.js
 /controllers/albumController.js
