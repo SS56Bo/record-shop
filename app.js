@@ -71,15 +71,18 @@ const deleteAlbum = (req, res) => {
 };
 
 ////// routes ////
-app.get("/api/v1/albums", getAllAlbums);
+//app.get("/api/v1/albums", getAllAlbums);
+//app.post("/api/v1/albums", postNewAlbum);
+// app.get("/api/v1/albums/:id", getSingleAlbum);
+// app.patch("/api/v1/albums/:id", updateAlbum);
+// app.delete("/api/v1/albums/:id", deleteAlbum);
 
-app.post("/api/v1/albums", postNewAlbum);
-
-app.get("/api/v1/albums/:id", getSingleAlbum);
-
-app.patch("/api/v1/albums/:id", updateAlbum);
-
-app.delete("/api/v1/albums/:id", deleteAlbum);
+app.route("/api/v1/albums").get(getAllAlbums).post(postNewAlbum);
+app
+  .route("/api/v1/albums/:id")
+  .get(getSingleAlbum)
+  .get(updateAlbum)
+  .get(deleteAlbum);
 
 const port = 3000;
 app.listen(port, () => {
