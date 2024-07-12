@@ -8,7 +8,4 @@ app.use(express.json());
 
 app.use('/api/v1/albums', albumRouter);
 
-const port = 3000;
-app.listen(port, () => {
-  console.log(`App running in ${port}......`);
-});
+module.exports = app;
