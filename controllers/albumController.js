@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const Album = require('./../models/modelAlbum');
 
 const productFilePath = path.join(
   __dirname,
