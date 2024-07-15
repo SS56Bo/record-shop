@@ -56,13 +56,90 @@
   },
   {
     "id": 5,
-    "name": "Being Funny in a Foregin Language",
+    "title": "Being Funny in a Foregin Language",
     "artist": "The 1975",
     "label": "Dirty Hit",
     "genre": "Indie Rock",
     "release_date": "2022-10-14",
     "numberOftracks": 11,
     "description": "Achingly raw, brutally honest, and (above all) hopeful, ‘Being Funny in a Foreign Language’ is a softly stunning masterpiece: The 1975’s fifth studio album is their most realized, heartfelt, and loving work to date.",
+    "price": 44.99
+  },
+  {
+    "id": 6,
+    "title": "Nevermind",
+    "artist": "Nirvana",
+    "label": "Sound City",
+    "genre": "Alternative Rock",
+    "release_date": "1991-09-24",
+    "numberOftracks": 12,
+    "description": "In a stroke, Nevermind legitimised college rock, aestheticised it and tossed off choruses that can make anyone feel included.",
+    "price": 39.99
+  },
+  {
+    "id": 7,
+    "title": "A Head Full of Dreams",
+    "artist": "Coldplay",
+    "label": "Atlantic",
+    "genre": "Pop Alternative",
+    "release_date": "2015-12-04",
+    "numberOftracks": 12,
+    "description": "",
+    "price": 41.99
+  },
+  {
+    "id": 8,
+    "title": "The Queen is Dead",
+    "artist": "The Smiths",
+    "label": "Rough Trade",
+    "genre": "Indie Pop",
+    "release_date": "1986-06-16",
+    "numberOftracks": 10,
+    "description": "",
+    "price": 34.99
+  },
+  {
+    "id": 9,
+    "title": "Night Visions",
+    "artist": "Imagine Dragons",
+    "label": "Interscope Records",
+    "genre": "Alternative Rock",
+    "release_date": "2012-09-04",
+    "numberOftracks": 11,
+    "description": "",
+    "price": 34.99
+  },
+  {
+    "id": 10,
+    "title": "Pablo Honey",
+    "artist": "Radiohead",
+    "label": "Parlophone",
+    "genre": "Alternative Rock",
+    "release_date": "1993-02-22",
+    "numberOftracks": 12,
+    "description": "",
+    "price": 26.99
+  },
+  {
+    "id": 11,
+    "title": "Brightside",
+    "artist": "The Lumineers",
+    "label": "Dualtone",
+    "genre": "Indie Folk",
+    "release_date": "2022-01-14",
+    "numberOftracks": 9,
+    "description": "Good!",
+    "price": 39.99
+  },
+  {
+    "id": 12,
+    "title": "I Like It When You Sleep, for You Are So Beautiful yet So Unaware of It",
+    "artist": "The 1975",
+    "label": "Dirty Hit",
+    "genre": "Electronic Pop",
+    "release_date": "2016-02-26",
+    "numberOftracks": 17,
+    "description": "",
     "price": 44.99
   }
 ]
