@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DB_PASSWORD);
 
-mongoose.connect(DB, { useNewUrlParser: true }).then((con) => {
+mongoose.connect(DB, {}).then((con) => {
   console.log(con);
   console.log('DB Successfully connected!');
 });
