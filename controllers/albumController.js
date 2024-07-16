@@ -80,15 +80,24 @@ exports.updateSingleAlbum = async (req, res) => {
     });
   } catch (err) {
     res.status(400).json({
-      status: 'Error. Update unsuccessfully!',
+      status: 'Error. Update unsuccessfull!',
       message: err,
     });
   }
 };
 
-exports.deleteAlbum = (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    message: 'Entry deleted',
-  });
+exports.deleteAlbum = async (req, res) => {
+  try {
+    await Album.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+      status: 'success',
+      message: 'Entry deleted',
+      data: null,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'Error. Deletion unsuccessfull!',
+      message: err,
+    });
+  }
 };
