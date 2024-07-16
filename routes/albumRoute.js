@@ -10,7 +10,7 @@ albumRouter
 albumRouter
   .route('/:id')
   .get(albumControl.getSingleAlbum)
-  .get(albumControl.updateAlbum)
-  .get(albumControl.deleteAlbum);
+  .patch(albumControl.updateSingleAlbum)
+  .delete(albumControl.deleteAlbum);
 
 module.exports = albumRouter;
