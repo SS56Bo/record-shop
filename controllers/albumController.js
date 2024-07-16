@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const Album = require('./../models/modelAlbum');
+let count = 2;
 
 const productFilePath = path.join(
   __dirname,
@@ -17,7 +18,6 @@ exports.getAllAlbums = async (req, res) => {
     const allAlbum = await Album.find();
     res.status(200).json({
       status: 'success',
-      //dataLength: productData.length,
       data: {
         album: allAlbum,
       },
@@ -31,21 +31,9 @@ exports.getAllAlbums = async (req, res) => {
 };
 
 exports.postNewAlbum = async (req, res) => {
-  // //console.log(req.body);
-  // const newId = productData[productData.length - 1].id + 1;
-  // const newBody = Object.assign({ id: newId }, req.body);
-  //productData.push(newBody);
-  // fs.writeFile(productFilePath, JSON.stringify(productData), (err) => {
-  //   res.status(200).json({
-  //     status: 'success',
-  //     data: {
-  //       album: newBody,
-  //     },
-  //   });
-  // });
-
   try {
     const newAlbum = await Album.create(req.body);
+    count = count + 1;
     res.status(200).json({
       status: 'success',
       data: {
@@ -60,32 +48,42 @@ exports.postNewAlbum = async (req, res) => {
   }
 };
 
-exports.getSingleAlbum = (req, res) => {
-  //console.log(req.params);
-
-  const searchID = req.params.id * 1;
-  const singleAlbum = productData.find((el) => el.id === searchID);
-
-  if (searchID > productData.length) {
+exports.getSingleAlbum = async (req, res) => {
+  try {
+    const singleAlbum = await Album.findById(req.params.id);
+    res.status(200).json({
+      success: 'success',
+      data: {
+        singleAlbum,
+      },
+    });
+  } catch (err) {
     res.status(400).json({
-      status: 'fail',
-      message: 'invalid ID',
+      status: 'error',
+      message: err,
     });
   }
-
-  res.status(200).json({
-    success: 'success',
-    data: {
-      singleAlbum,
-    },
-  });
 };
 
-exports.updateAlbum = (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    message: 'Entry updated',
-  });
+exports.updateSingleAlbum = async (req, res) => {
+  try {
+    const updateAlbum = await Album.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json({
+      status: 'success',
+      message: 'Entry updated',
+      data: {
+        updateAlbum,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'Error. Update unsuccessfully!',
+      message: err,
+    });
+  }
 };
 
 exports.deleteAlbum = (req, res) => {
