@@ -12,31 +12,52 @@ const productFilePath = path.join(
 );
 const productData = JSON.parse(fs.readFileSync(productFilePath, 'utf8'));
 
-exports.getAllAlbums = (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    dataLength: productData.length,
-    data: {
-      album: productData,
-    },
-  });
+exports.getAllAlbums = async (req, res) => {
+  try {
+    const allAlbum = await Album.find();
+    res.status(200).json({
+      status: 'success',
+      //dataLength: productData.length,
+      data: {
+        album: allAlbum,
+      },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: 'error',
+      message: err,
+    });
+  }
 };
 
-exports.postNewAlbum = (req, res) => {
-  //console.log(req.body);
-  const newId = productData[productData.length - 1].id + 1;
-  const newBody = Object.assign({ id: newId }, req.body);
+exports.postNewAlbum = async (req, res) => {
+  // //console.log(req.body);
+  // const newId = productData[productData.length - 1].id + 1;
+  // const newBody = Object.assign({ id: newId }, req.body);
+  //productData.push(newBody);
+  // fs.writeFile(productFilePath, JSON.stringify(productData), (err) => {
+  //   res.status(200).json({
+  //     status: 'success',
+  //     data: {
+  //       album: newBody,
+  //     },
+  //   });
+  // });
 
-  productData.push(newBody);
-
-  fs.writeFile(productFilePath, JSON.stringify(productData), (err) => {
+  try {
+    const newAlbum = await Album.create(req.body);
     res.status(200).json({
       status: 'success',
       data: {
-        album: newBody,
+        album: newAlbum,
       },
     });
-  });
+  } catch (err) {
+    res.status(400).json({
+      status: 'error',
+      message: err,
+    });
+  }
 };
 
 exports.getSingleAlbum = (req, res) => {

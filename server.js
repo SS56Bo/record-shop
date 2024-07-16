@@ -2,6 +2,7 @@ const app = require('./app');
 const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
 const mongoose = require('mongoose');
+const Album = require('./models/modelAlbum');
 
 const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DB_PASSWORD);
 
@@ -11,17 +12,13 @@ mongoose.connect(DB, {}).then((con) => {
 });
 
 ///////
-// const albumSchema = new mongoose.Schema({
-//   title: { type: String, required: [true, 'Requires a title'], unique: true },
-//   artist: { type: String, required: [true, 'Requires a artist'], unique: true },
-//   price: { type: Number, default: 29.99 },
-// });
-
-// const Album = mongoose.model('Album', albumSchema);
 
 // const testDoc = new Album({
-//   title: 'Malcolm is home',
-//   artist: 'The 745',
+//   title: 'Crystal Crack House',
+//   artist: 'Natalie is Freezing',
+//   label: 'Dirty Hit',
+//   genre: 'Punk Rock',
+//   description: 'Good',
 //   price: 12.45,
 // });
 
