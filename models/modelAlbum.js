@@ -22,6 +22,7 @@ const albumSchema = new mongoose.Schema({
   },
   numberOfTracks: {
     type: Number,
+    default: 5,
   },
   trackListing: [String],
   imgLocation: [String],

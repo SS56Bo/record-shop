@@ -15,7 +15,12 @@ const productData = JSON.parse(fs.readFileSync(productFilePath, 'utf8'));
 
 exports.getAllAlbums = async (req, res) => {
   try {
-    const allAlbum = await Album.find();
+    const objQuery = { ...req.query };
+    const excludedFields = ['page', 'sort', 'limit', 'fields'];
+    excludedFields.forEach((el) => delete objQuery(el));
+    //console.log(req.query);
+    const query = Album.find(req.query);
+    const allAlbum = await query;
     res.status(200).json({
       status: 'success',
       results: allAlbum.length,
