@@ -1,6 +1,5 @@
 [
   {
-    "id": 0,
     "title": "Notes on a Conditional Form",
     "artist": "The 1975",
     "label": "Dirty Hit",
@@ -11,7 +10,6 @@
     "price": 29.99
   },
   {
-    "id": 1,
     "title": "III",
     "artist": "The Lumineers",
     "label": "Dualtone Music Group",
@@ -22,7 +20,6 @@
     "price": 19.99
   },
   {
-    "id": 2,
     "title": "Cleopatra",
     "artist": "The Lumineers",
     "label": "Dualtone Music Group",
@@ -33,7 +30,6 @@
     "price": 24.99
   },
   {
-    "id": 3,
     "title": "OK Computer",
     "artist": "Radiohead",
     "label": "Parlophone",
@@ -44,7 +40,6 @@
     "price": 22.99
   },
   {
-    "id": 4,
     "title": "The 1975",
     "artist": "The 1975",
     "label": "Dirty Hit",
@@ -54,19 +49,8 @@
     "description": "The debut studio album by English rock band The 1975. It blends indie rock with electronic elements, featuring introspective lyrics and atmospheric production.",
     "price": 25.99
   },
+
   {
-    "id": 5,
-    "title": "Being Funny in a Foregin Language",
-    "artist": "The 1975",
-    "label": "Dirty Hit",
-    "genre": "Indie Rock",
-    "release_date": "2022-10-14",
-    "numberOftracks": 11,
-    "description": "Achingly raw, brutally honest, and (above all) hopeful, ‘Being Funny in a Foreign Language’ is a softly stunning masterpiece: The 1975’s fifth studio album is their most realized, heartfelt, and loving work to date.",
-    "price": 44.99
-  },
-  {
-    "id": 6,
     "title": "Nevermind",
     "artist": "Nirvana",
     "label": "Sound City",
@@ -77,51 +61,46 @@
     "price": 39.99
   },
   {
-    "id": 7,
     "title": "A Head Full of Dreams",
     "artist": "Coldplay",
     "label": "Atlantic",
     "genre": "Pop Alternative",
     "release_date": "2015-12-04",
     "numberOftracks": 12,
-    "description": "",
+    "description": "Beautiful",
     "price": 41.99
   },
   {
-    "id": 8,
     "title": "The Queen is Dead",
     "artist": "The Smiths",
     "label": "Rough Trade",
     "genre": "Indie Pop",
     "release_date": "1986-06-16",
     "numberOftracks": 10,
-    "description": "",
+    "description": "Masterpiece",
     "price": 34.99
   },
   {
-    "id": 9,
     "title": "Night Visions",
     "artist": "Imagine Dragons",
     "label": "Interscope Records",
     "genre": "Alternative Rock",
     "release_date": "2012-09-04",
     "numberOftracks": 11,
-    "description": "",
+    "description": "Ehh",
     "price": 34.99
   },
   {
-    "id": 10,
     "title": "Pablo Honey",
     "artist": "Radiohead",
     "label": "Parlophone",
     "genre": "Alternative Rock",
     "release_date": "1993-02-22",
     "numberOftracks": 12,
-    "description": "",
+    "description": "Great!",
     "price": 26.99
   },
   {
-    "id": 11,
     "title": "Brightside",
     "artist": "The Lumineers",
     "label": "Dualtone",
@@ -132,14 +111,135 @@
     "price": 39.99
   },
   {
-    "id": 12,
     "title": "I Like It When You Sleep, for You Are So Beautiful yet So Unaware of It",
     "artist": "The 1975",
     "label": "Dirty Hit",
     "genre": "Electronic Pop",
     "release_date": "2016-02-26",
     "numberOftracks": 17,
-    "description": "",
+    "description": "Perhaps their greatest tribute is that the 1975, despite being in their mid-twenties and on their second album, are just like them: messy, earnest, vulnerable, unedited, gaudy.",
     "price": 44.99
+  },
+  {
+    "title": "Being Funny in a Foreign Language",
+    "artist": "The 1975",
+    "label": "Dirty Hit",
+    "genre": "Pop Rock",
+    "trackListing": [
+      "The 1975",
+      "Happiness",
+      "Looking for Somebody (To Love)",
+      "Part of the Band",
+      "Oh Caroline",
+      "I'm in Love with You",
+      "All I Need to Hear",
+      "Wintering",
+      "Human Too",
+      "About You",
+      "When we are together"
+    ],
+    "imgLocation": [],
+    "description": "Achingly raw, brutally honest, and (above all) hopeful, ‘Being Funny in a Foreign Language’ is a softly stunning masterpiece: The 1975’s fifth studio album is their most realized, heartfelt, and loving work to date.",
+    "price": 6599,
+    "versionAvailable": ["Vinyl", "CD", "Cassette", "Digital"],
+    "rating": 4.8
+  },
+  {
+    "title": "The Dark Side of the Moon",
+    "artist": "Pink Floyd",
+    "label": "Capitol Records",
+    "genre": "Psychedelic Rock",
+    "trackListing": [
+      "Speak to Me",
+      "Breathe (In the Air)",
+      "On the Run",
+      "Time",
+      "The Great Gig in the Sky",
+      "Money",
+      "Us Them",
+      "Any Colour You Like",
+      "Brain Damage",
+      "Eclipse"
+    ],
+    "imgLocation": [],
+    "description": "A sonic masterpiece, that uncomplicatedly blends haunting lyrics and innovative soundscapes, Pink Floyd's The Dark Side of the Moon is a timeless, genre-defining experience.",
+    "price": 8600,
+    "versionAvailable": ["Vinyl", "CD", "Cassette"],
+    "rating": 5
+  },
+  {
+    "title": "Origins",
+    "artist": "Imagine Dragons",
+    "label": "Interscope Records",
+    "genre": "Pop Rock",
+    "trackListing": [
+      "Natural",
+      "Boomerang",
+      "Machine",
+      "Cool Out",
+      "Bad Liar",
+      "West Coast",
+      "Zero",
+      "Bullet in a Gun",
+      "Birds",
+      "Real Life",
+      "Born to Be Yours (with Kygo)",
+      "Burn Out"
+    ],
+    "imgLocation": [],
+    "description": "Origins is an eclectic mix of powerful anthems and introspective tracks, showcasing Imagine Dragons' versatility and emotional depth in a compelling package.",
+    "price": 5000,
+    "versionAvailable": ["Vinyl", "CD"],
+    "rating": 3.8
+  },
+  {
+    "title": "The Lumineers",
+    "artist": "The Lumineers",
+    "label": "Dualtone",
+    "genre": "Indie Folk",
+    "trackListing": [
+      "Flowers in Your Hair",
+      "Classy Girls",
+      "Submarine",
+      "Dead Sea",
+      "Ho Hey",
+      "Slow it Down",
+      "Stubborn Love",
+      "Big Parade",
+      "Charlie Boy",
+      "Ain't Nobody's Problem",
+      "Morning Song"
+    ],
+    "imgLocation": [],
+    "description": "The Lumineers' self-titled debut album is a heartfelt journey through folk-inspired melodies and evocative lyrics, delivering raw emotion and timeless storytelling.",
+    "price": 6600,
+    "versionAvailable": ["Vinyl", "CD", "Cassette"],
+    "rating": 4.1
+  },
+  {
+    "title": "Hybrid Theory",
+    "artist": "Linkin Park",
+    "label": "Warner Bros.",
+    "genre": "Nu metal, alternative rock",
+    "numberOfTracks": 12,
+    "trackListing": [
+      "Papercut",
+      "One Step Closer",
+      "With You",
+      "Points of Authority",
+      "Crawling",
+      "Runaway",
+      "By Myself",
+      "In the End",
+      "A Place for My Head",
+      "Forgotten",
+      "Cure for the Itch",
+      "Pushing Me Away"
+    ],
+    "imgLocation": [],
+    "description": "Hybrid Theory is the debut studio album by American rock band Linkin Park, released on October 24, 2000, by Warner Bros. Records. The album was a commercial success, having been certified Diamond for sales of over 10 million copies in the United States alone.",
+    "price": 14.99,
+    "versionAvailable": ["CD", "Vinyl", "Digital"],
+    "rating": 4.8
   }
 ]

@@ -18,6 +18,7 @@ exports.getAllAlbums = async (req, res) => {
     const allAlbum = await Album.find();
     res.status(200).json({
       status: 'success',
+      results: allAlbum.length,
       data: {
         album: allAlbum,
       },
