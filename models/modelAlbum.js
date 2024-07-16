@@ -24,6 +24,7 @@ const albumSchema = new mongoose.Schema({
     type: Number,
   },
   trackListing: [String],
+  imgLocation: [String],
   description: {
     type: String,
     required: [true, 'Always requires a description'],
@@ -32,6 +33,7 @@ const albumSchema = new mongoose.Schema({
     type: Number,
     default: 0.0,
   },
+  versionAvailable: [String],
   rating: {
     type: Number,
     default: 1.0,
