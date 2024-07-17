@@ -2,25 +2,15 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const Album = require('./../models/modelAlbum');
-let count = 2;
-
-const productFilePath = path.join(
-  __dirname,
-  '..',
-  'assets',
-  'json',
-  'product.json'
-);
-const productData = JSON.parse(fs.readFileSync(productFilePath, 'utf8'));
 
 exports.getAllAlbums = async (req, res) => {
   try {
     const objQuery = { ...req.query };
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
-    excludedFields.forEach((el) => delete objQuery(el));
-    //console.log(req.query);
-    const query = Album.find(req.query);
-    const allAlbum = await query;
+    excludedFields.forEach((el) => delete objQuery[el]);
+
+    const queryAlbum = Album.find(objQuery);
+    const allAlbum = await queryAlbum;
     res.status(200).json({
       status: 'success',
       results: allAlbum.length,
@@ -39,7 +29,6 @@ exports.getAllAlbums = async (req, res) => {
 exports.postNewAlbum = async (req, res) => {
   try {
     const newAlbum = await Album.create(req.body);
-    count = count + 1;
     res.status(200).json({
       status: 'success',
       data: {
