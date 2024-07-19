@@ -1,15 +1,22 @@
 const express = require('express');
-const fs = require('fs');
 const path = require('path');
 const Album = require('./../models/modelAlbum');
 
 exports.getAllAlbums = async (req, res) => {
   try {
+    //console.log(req.query);
+    // BUILD QUERY
+    // 1 -> FILTERING
     const objQuery = { ...req.query };
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
     excludedFields.forEach((el) => delete objQuery[el]);
 
-    const queryAlbum = Album.find(objQuery);
+    // 2 -> ADVANCED FILTERING
+    let queryStr = JSON.stringify(objQuery);
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+    //console.log(queryStr);
+
+    const queryAlbum = Album.find(JSON.parse(queryStr));
     const allAlbum = await queryAlbum;
     res.status(200).json({
       status: 'success',
