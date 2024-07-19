@@ -4,7 +4,7 @@ const Album = require('./../models/modelAlbum');
 
 exports.getAllAlbums = async (req, res) => {
   try {
-    //console.log(req.query);
+    console.log(req.query);
     // BUILD QUERY
     // 1 -> FILTERING
     const objQuery = { ...req.query };
@@ -14,9 +14,19 @@ exports.getAllAlbums = async (req, res) => {
     // 2 -> ADVANCED FILTERING
     let queryStr = JSON.stringify(objQuery);
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-    //console.log(queryStr);
 
-    const queryAlbum = Album.find(JSON.parse(queryStr));
+    let queryAlbum = Album.find(JSON.parse(queryStr));
+
+    // 3 -> SORTING
+    if (req.query.sort) {
+      let sortBy = req.query.sort.split(',').join(' ');
+      console.log(sortBy);
+      queryAlbum = queryAlbum.sort(sortBy);
+    } else {
+      queryAlbum = queryAlbum.sort('-rating');
+    }
+    // -{paramter to be sorted } for DESC order
+    // {paramter to be sorted } for ASC order
     const allAlbum = await queryAlbum;
     res.status(200).json({
       status: 'success',
