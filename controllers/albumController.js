@@ -27,6 +27,15 @@ exports.getAllAlbums = async (req, res) => {
     }
     // -{paramter to be sorted } for DESC order
     // {paramter to be sorted } for ASC order
+
+    // 4-> FIELD LIMITING
+    if (req.query.fields) {
+      let fields = req.query.fields.split(',').join(' ');
+      queryAlbum = queryAlbum.select(fields);
+    } else {
+      queryAlbum = queryAlbum.select('-__v');
+    }
+
     const allAlbum = await queryAlbum;
     res.status(200).json({
       status: 'success',
