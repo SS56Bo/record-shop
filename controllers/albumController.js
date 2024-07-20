@@ -5,7 +5,7 @@ const Album = require('./../models/modelAlbum');
 exports.getAllAlbums = async (req, res) => {
   try {
     console.log(req.query);
-    // BUILD QUERY
+
     // 1 -> FILTERING
     const objQuery = { ...req.query };
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
@@ -34,6 +34,17 @@ exports.getAllAlbums = async (req, res) => {
       queryAlbum = queryAlbum.select(fields);
     } else {
       queryAlbum = queryAlbum.select('-__v');
+    }
+
+    // 5-> PAGINATION
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit * 1 || 100;
+    const skip = (page - 1) * limit;
+    queryAlbum = queryAlbum.skip(skip).limit(limit);
+
+    if (req.query.page) {
+      const numTours = await Album.countDocuments();
+      if (skip >= numTours) throw new Error('This page does not exist!');
     }
 
     const allAlbum = await queryAlbum;
