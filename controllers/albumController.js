@@ -2,6 +2,20 @@ const express = require('express');
 const path = require('path');
 const Album = require('./../models/modelAlbum');
 
+exports.aliasTopAlbum = (req, res, next) => {
+  req.query.limit = 5;
+  req.query.sort = '-ratings,-price';
+  req.query.fields = 'title,artist,rating,description,price';
+  next();
+};
+
+exports.getCheapAlbums = (req, res, next) => {
+  req.query.limit = 5;
+  req.query.sort = 'rating,price';
+  req.query.fields = 'title,artist,rating,description,price';
+  next();
+};
+
 exports.getAllAlbums = async (req, res) => {
   try {
     console.log(req.query);
