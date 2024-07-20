@@ -3,6 +3,14 @@ const albumRouter = express.Router();
 const albumControl = require('./../controllers/albumController');
 
 albumRouter
+  .route('/select-albums')
+  .get(albumControl.aliasTopAlbum, albumControl.getAllAlbums);
+
+albumRouter
+  .route('/top-5-cheaps')
+  .get(albumControl.getCheapAlbums, albumControl.getAllAlbums);
+
+albumRouter
   .route('/')
   .get(albumControl.getAllAlbums)
   .post(albumControl.postNewAlbum);
