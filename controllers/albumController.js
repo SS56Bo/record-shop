@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const Album = require('./../models/modelAlbum');
+const { group } = require('console');
 
 exports.aliasTopAlbum = (req, res, next) => {
   req.query.limit = 5;
@@ -198,6 +199,40 @@ exports.deleteAlbum = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: 'Error. Deletion unsuccessfull!',
+      message: err,
+    });
+  }
+};
+
+exports.getAlbumStats = async (req, res) => {
+  try {
+    const stat = await Album.aggregate([
+      {
+        $match: { rating: { $gte: 4.0 } },
+      },
+      {
+        $group: {
+          _id: '$genre',
+          numTours: { $sum: 1 },
+          avgRating: { $avg: '$rating' },
+          avgPrice: { $avg: '$price' },
+          minPrice: { $min: '$price' },
+          maxPrice: { $max: '$price' },
+        },
+      },
+      {
+        $sort: { avgPrice: 1 },
+      },
+    ]);
+
+    res.status(200).json({
+      status: 'success',
+      message: 'Entry deleted',
+      data: stat,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'Failed to fetch.......',
       message: err,
     });
   }

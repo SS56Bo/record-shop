@@ -10,6 +10,8 @@ albumRouter
   .route('/top-5-cheaps')
   .get(albumControl.getCheapAlbums, albumControl.getAllAlbums);
 
+albumRouter.route('/get-stats').get(albumControl.getAlbumStats);
+
 albumRouter
   .route('/')
   .get(albumControl.getAllAlbums)
