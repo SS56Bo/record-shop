@@ -16,52 +16,107 @@ exports.getCheapAlbums = (req, res, next) => {
   next();
 };
 
+class APIFeatures {
+  constructor(query, queryString) {
+    this.query = query;
+    this.queryString = queryString;
+  }
+
+  filter() {
+    const queryObj = { ...this.queryString };
+    const excludedFields = ['page', 'sort', 'limit', 'fields'];
+    excludedFields.forEach((el) => delete queryObj[el]);
+
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+
+    this.query = this.query.find(JSON.parse(queryStr));
+    return this;
+  }
+
+  sort() {
+    if (this.queryString.sort) {
+      const sortBy = this.queryString.sort.split(',').join(' ');
+      this.query = this.query.sort(sortBy);
+    } else {
+      this.query = this.query.sort('-rating');
+    }
+    return this;
+  }
+
+  limitFields() {
+    if (this.queryString.fields) {
+      const fields = this.queryString.fields.split(',').join(' ');
+      this.query = this.query.select(fields);
+    } else {
+      this.query = this.query.select('-__v');
+    }
+    return this;
+  }
+
+  paginate() {
+    const page = this.queryString.page * 1 || 1;
+    const limit = this.queryString.limit * 1 || 100;
+    const skip = (page - 1) * limit;
+
+    this.query = this.query.skip(skip).limit(limit);
+    return this;
+  }
+}
+
 exports.getAllAlbums = async (req, res) => {
   try {
     console.log(req.query);
 
-    // 1 -> FILTERING
-    const objQuery = { ...req.query };
-    const excludedFields = ['page', 'sort', 'limit', 'fields'];
-    excludedFields.forEach((el) => delete objQuery[el]);
+    // // 1 -> FILTERING
+    // const objQuery = { ...req.query };
+    // const excludedFields = ['page', 'sort', 'limit', 'fields'];
+    // excludedFields.forEach((el) => delete objQuery[el]);
 
-    // 2 -> ADVANCED FILTERING
-    let queryStr = JSON.stringify(objQuery);
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+    // // 2 -> ADVANCED FILTERING
+    // queryStr = JSON.stringify(objQuery);
+    // queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
 
-    let queryAlbum = Album.find(JSON.parse(queryStr));
+    // queryAlbum = Album.find(JSON.parse(queryStr));
 
-    // 3 -> SORTING
-    if (req.query.sort) {
-      let sortBy = req.query.sort.split(',').join(' ');
-      console.log(sortBy);
-      queryAlbum = queryAlbum.sort(sortBy);
-    } else {
-      queryAlbum = queryAlbum.sort('-rating');
-    }
+    // 3 -> SORTING/
+    // if (req.query.sort) {
+    //   let sortBy = req.query.sort.split(',').join(' ');
+    //   console.log(sortBy);
+    //   this.queryAlbum = this.queryAlbum.sort(sortBy);
+    // } else {
+    //   this.queryAlbum = this.queryAlbum.sort('-rating');
+    // }
     // -{paramter to be sorted } for DESC order
     // {paramter to be sorted } for ASC order
 
     // 4-> FIELD LIMITING
-    if (req.query.fields) {
-      let fields = req.query.fields.split(',').join(' ');
-      queryAlbum = queryAlbum.select(fields);
-    } else {
-      queryAlbum = queryAlbum.select('-__v');
-    }
+    // if (req.query.fields) {
+    //   let fields = req.query.fields.split(',').join(' ');
+    //   queryAlbum = queryAlbum.select(fields);
+    // } else {
+    //   queryAlbum = queryAlbum.select('-__v');
+    // }
 
-    // 5-> PAGINATION
-    const page = req.query.page * 1 || 1;
-    const limit = req.query.limit * 1 || 100;
-    const skip = (page - 1) * limit;
-    queryAlbum = queryAlbum.skip(skip).limit(limit);
+    // // 5-> PAGINATION
+    // const page = req.query.page * 1 || 1;
+    // const limit = req.query.limit * 1 || 100;
+    // const skip = (page - 1) * limit;
+    // queryAlbum = queryAlbum.skip(skip).limit(limit);
 
-    if (req.query.page) {
-      const numTours = await Album.countDocuments();
-      if (skip >= numTours) throw new Error('This page does not exist!');
-    }
+    // if (req.query.page) {
+    //   const numTours = await Album.countDocuments();
+    //   if (skip >= numTours) throw new Error('This page does not exist!');
+    // }
 
-    const allAlbum = await queryAlbum;
+    const features = new APIFeatures(Album.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+
+    const allAlbum = await features.query;
+
     res.status(200).json({
       status: 'success',
       results: allAlbum.length,
@@ -71,7 +126,7 @@ exports.getAllAlbums = async (req, res) => {
     });
   } catch (err) {
     res.status(400).json({
-      status: 'error',
+      status: 'Error',
       message: err,
     });
   }
