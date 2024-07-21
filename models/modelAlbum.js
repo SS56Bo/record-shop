@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const albumSchema = new mongoose.Schema({
   title: {
@@ -38,6 +39,8 @@ const albumSchema = new mongoose.Schema({
   rating: {
     type: Number,
     default: 1.0,
+    min: [1.0, 'Rating must be above 1'],
+    max: [5.0, 'Rating must be below 5'],
   },
 });
 
