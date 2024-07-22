@@ -10,4 +10,11 @@ app.use(express.json());
 
 app.use('/api/v1/albums', albumRouter);
 
+app.all('*', (req, res, next) => {
+  res.status(400).json({
+    status: 'NOT FOUND!',
+    message: `Can't find ${req.originalUrl} form this server !`,
+  });
+});
+
 module.exports = app;
