@@ -69,47 +69,6 @@ exports.getAllAlbums = async (req, res) => {
   try {
     console.log(req.query);
 
-    // // 1 -> FILTERING
-    // const objQuery = { ...req.query };
-    // const excludedFields = ['page', 'sort', 'limit', 'fields'];
-    // excludedFields.forEach((el) => delete objQuery[el]);
-
-    // // 2 -> ADVANCED FILTERING
-    // queryStr = JSON.stringify(objQuery);
-    // queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-
-    // queryAlbum = Album.find(JSON.parse(queryStr));
-
-    // 3 -> SORTING/
-    // if (req.query.sort) {
-    //   let sortBy = req.query.sort.split(',').join(' ');
-    //   console.log(sortBy);
-    //   this.queryAlbum = this.queryAlbum.sort(sortBy);
-    // } else {
-    //   this.queryAlbum = this.queryAlbum.sort('-rating');
-    // }
-    // -{paramter to be sorted } for DESC order
-    // {paramter to be sorted } for ASC order
-
-    // 4-> FIELD LIMITING
-    // if (req.query.fields) {
-    //   let fields = req.query.fields.split(',').join(' ');
-    //   queryAlbum = queryAlbum.select(fields);
-    // } else {
-    //   queryAlbum = queryAlbum.select('-__v');
-    // }
-
-    // // 5-> PAGINATION
-    // const page = req.query.page * 1 || 1;
-    // const limit = req.query.limit * 1 || 100;
-    // const skip = (page - 1) * limit;
-    // queryAlbum = queryAlbum.skip(skip).limit(limit);
-
-    // if (req.query.page) {
-    //   const numTours = await Album.countDocuments();
-    //   if (skip >= numTours) throw new Error('This page does not exist!');
-    // }
-
     const features = new APIFeatures(Album.find(), req.query)
       .filter()
       .sort()
