@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const Album = require('./../models/modelAlbum');
 const APIFeatures = require('./../utils/APIFeatures');
+const catchAsyncError = require('./../utils/catchAsyncError');
 const { group } = require('console');
 
 exports.aliasTopAlbum = (req, res, next) => {
@@ -18,134 +19,92 @@ exports.getCheapAlbums = (req, res, next) => {
   next();
 };
 
-exports.getAllAlbums = async (req, res) => {
-  try {
-    console.log(req.query);
+// const catchAsyncError
 
-    const features = new APIFeatures(Album.find(), req.query)
-      .filter()
-      .sort()
-      .limitFields()
-      .paginate();
+exports.getAllAlbums = catchAsyncError(async (req, res, next) => {
+  const features = new APIFeatures(Album.find(), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
 
-    const allAlbum = await features.query;
+  const allAlbum = await features.query;
 
-    res.status(200).json({
-      status: 'success',
-      results: allAlbum.length,
-      data: {
-        album: allAlbum,
+  res.status(200).json({
+    status: 'success',
+    results: allAlbum.length,
+    data: {
+      album: allAlbum,
+    },
+  });
+});
+
+exports.postNewAlbum = catchAsyncError(async (req, res, next) => {
+  const newAlbum = await Album.create(req.body);
+  res.status(200).json({
+    status: 'success',
+    data: {
+      album: newAlbum,
+    },
+  });
+});
+
+exports.getSingleAlbum = catchAsyncError(async (req, res, next) => {
+  const singleAlbum = await Album.findById(req.params.id);
+  res.status(200).json({
+    success: 'success',
+    data: {
+      singleAlbum,
+    },
+  });
+});
+
+exports.updateSingleAlbum = catchAsyncError(async (req, res) => {
+  const updateAlbum = await Album.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  res.status(200).json({
+    status: 'success',
+    message: 'Entry updated',
+    data: {
+      updateAlbum,
+    },
+  });
+});
+
+exports.deleteAlbum = catchAsyncError(async (req, res, next) => {
+  await Album.findByIdAndDelete(req.params.id);
+  res.status(200).json({
+    status: 'success',
+    message: 'Entry deleted',
+    data: null,
+  });
+});
+
+exports.getAlbumStats = catchAsyncError(async (req, res, next) => {
+  const stat = await Album.aggregate([
+    {
+      $match: { rating: { $gte: 4.0 } },
+    },
+    {
+      $group: {
+        _id: '$genre',
+        numTours: { $sum: 1 },
+        avgRating: { $avg: '$rating' },
+        avgPrice: { $avg: '$price' },
+        minPrice: { $min: '$price' },
+        maxPrice: { $max: '$price' },
       },
-    });
-  } catch (err) {
-    res.status(400).json({
-      status: 'Error',
-      message: err,
-    });
-  }
-};
+    },
+    {
+      $sort: { avgPrice: 1 },
+    },
+  ]);
 
-exports.postNewAlbum = async (req, res) => {
-  try {
-    const newAlbum = await Album.create(req.body);
-    res.status(200).json({
-      status: 'success',
-      data: {
-        album: newAlbum,
-      },
-    });
-  } catch (err) {
-    res.status(400).json({
-      status: 'error',
-      message: err,
-    });
-  }
-};
-
-exports.getSingleAlbum = async (req, res) => {
-  try {
-    const singleAlbum = await Album.findById(req.params.id);
-    res.status(200).json({
-      success: 'success',
-      data: {
-        singleAlbum,
-      },
-    });
-  } catch (err) {
-    res.status(400).json({
-      status: 'error',
-      message: err,
-    });
-  }
-};
-
-exports.updateSingleAlbum = async (req, res) => {
-  try {
-    const updateAlbum = await Album.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-    res.status(200).json({
-      status: 'success',
-      message: 'Entry updated',
-      data: {
-        updateAlbum,
-      },
-    });
-  } catch (err) {
-    res.status(400).json({
-      status: 'Error. Update unsuccessfull!',
-      message: err,
-    });
-  }
-};
-
-exports.deleteAlbum = async (req, res) => {
-  try {
-    await Album.findByIdAndDelete(req.params.id);
-    res.status(200).json({
-      status: 'success',
-      message: 'Entry deleted',
-      data: null,
-    });
-  } catch (err) {
-    res.status(400).json({
-      status: 'Error. Deletion unsuccessfull!',
-      message: err,
-    });
-  }
-};
-
-exports.getAlbumStats = async (req, res) => {
-  try {
-    const stat = await Album.aggregate([
-      {
-        $match: { rating: { $gte: 4.0 } },
-      },
-      {
-        $group: {
-          _id: '$genre',
-          numTours: { $sum: 1 },
-          avgRating: { $avg: '$rating' },
-          avgPrice: { $avg: '$price' },
-          minPrice: { $min: '$price' },
-          maxPrice: { $max: '$price' },
-        },
-      },
-      {
-        $sort: { avgPrice: 1 },
-      },
-    ]);
-
-    res.status(200).json({
-      status: 'success',
-      message: 'Entry deleted',
-      data: stat,
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: 'Failed to fetch.......',
-      message: err,
-    });
-  }
-};
+  res.status(200).json({
+    status: 'success',
+    message: 'Entry deleted',
+    data: stat,
+  });
+});
