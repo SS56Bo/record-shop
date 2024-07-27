@@ -4,6 +4,7 @@ const Album = require('./../models/modelAlbum');
 const APIFeatures = require('./../utils/APIFeatures');
 const catchAsyncError = require('./../utils/catchAsyncError');
 const { group } = require('console');
+const AppError = require('../utils/appError');
 
 exports.aliasTopAlbum = (req, res, next) => {
   req.query.limit = 5;
@@ -51,6 +52,12 @@ exports.postNewAlbum = catchAsyncError(async (req, res, next) => {
 
 exports.getSingleAlbum = catchAsyncError(async (req, res, next) => {
   const singleAlbum = await Album.findById(req.params.id);
+  console.log(singleAlbum);
+
+  if (!singleAlbum) {
+    return next(new AppError('No Album found with given ID', 404));
+  }
+
   res.status(200).json({
     success: 'success',
     data: {

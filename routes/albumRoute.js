@@ -1,6 +1,8 @@
 const express = require('express');
 const albumRouter = express.Router();
 const albumControl = require('./../controllers/albumController');
+const AppError = require('./../utils/appError');
+const globalErrorHandler = require('./../controllers/errorController');
 
 albumRouter
   .route('/select-albums')
@@ -22,5 +24,11 @@ albumRouter
   .get(albumControl.getSingleAlbum)
   .patch(albumControl.updateSingleAlbum)
   .delete(albumControl.deleteAlbum);
+
+albumRouter.all('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
+
+albumRouter.use(globalErrorHandler);
 
 module.exports = albumRouter;
