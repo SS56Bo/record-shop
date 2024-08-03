@@ -4,11 +4,13 @@ const AppError = require('./utils/appError');
 const morgan = require('morgan');
 const globalErrorHandler = require('./controllers/errorController');
 const albumRouter = require('./routes/albumRoute');
+const userRouter = require('./routes/userRoute');
 
 app.use(morgan('dev'));
 app.use(express.json());
 
 app.use('/api/v1/albums', albumRouter);
+app.use('/api/v1/user', userRouter);
 
 app.all('*', (req, res, next) => {
   // const err = new Error(`Can't find ${req.originalUrl} form this server !`);
