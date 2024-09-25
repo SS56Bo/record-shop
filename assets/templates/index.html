@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        background-color: whitesmoke;
+      }
+      .header {
+        padding: 12px;
+        margin-top: 0;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        box-shadow: 1px 15px 10px black;
+      }
+      .header p {
+        margin: 0;
+        padding-left: 15px;
+        font-size: 24px;
+        font-weight: bold;
+      }
+      .logo {
+        flex-grow: 1;
+      }
+      .menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        list-style: none;
+        flex-grow: 2;
+        margin: 0;
+        padding: 0;
+        height: 100%; /* Ensures the menu takes up full height of the header */
+      }
+      .menu li {
+        padding: 10px 15px;
+        cursor: pointer;
+        height: 100%; /* Makes the li element's height match the header */
+        display: flex;
+        align-items: center; /* Center content vertically inside the li */
+      }
+      .menu li:hover {
+        background-color: rgb(243, 241, 241);
+      }
+      .login-btn {
+        padding-right: 15px;
+      }
+      button {
+        border-radius: 17px;
+        padding: 15px;
+      }
+      button:hover {
+        background-color: beige;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER FOR THE PAGE  -->
+    <div class="header">
+      <p class="logo">Record Store</p>
+      <ul class="menu">
+        <li>Home</li>
+        <li>New Arrivals</li>
+        <li>Stuff2</li>
+        <li>Stuff3</li>
+      </ul>
+      <div class="login-btn">
+        <button>Log In</button>
+      </div>
+    </div>
+  </body>
+</html>
